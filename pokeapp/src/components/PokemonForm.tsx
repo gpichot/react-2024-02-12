@@ -7,42 +7,46 @@ export default function PokemonForm() {
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     console.log({ name, type, weight, height });
   };
 
-  const isSubmitDisabled = !name || !type
+  const isSubmitDisabled = !name || !type;
 
-  return <form onSubmit={handleSubmit}>
-    <InputControl
-      label="Name"
-      name="name"
-      value={name}
-      onChange={e => setName(e.target.value)}
-      required
-    />
-    <InputControl
-      label="Type"
-      name="type"
-      value={type}
-      onChange={e => setType(e.target.value)}
-      required
-    />
-    <InputControl
-      label="Weight"
-      name="weight"
-      type="number"
-      value={weight}
-      onChange={e => setWeight((e.target.valueAsNumber))}
-    />
-    <InputControl
-      label="Height"
-      name="height"
-      type="number"
-      value={height}
-      onChange={e => setHeight(Number(e.target.valueAsNumber))}
-    />
-    <button type="submit" disabled={isSubmitDisabled}>Submit</button>
-  </form>;
+  return (
+    <form onSubmit={handleSubmit}>
+      <InputControl
+        label="Name"
+        name="name"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+        required
+      />
+      <InputControl
+        label="Type"
+        name="type"
+        value={type}
+        onChange={(e) => setType(e.target.value)}
+        required
+      />
+      <InputControl
+        label="Weight"
+        name="weight"
+        type="number"
+        value={weight}
+        onChange={(e) => setWeight(e.target.valueAsNumber)}
+      />
+      <InputControl
+        label="Height"
+        name="height"
+        type="number"
+        value={height}
+        onChange={(e) => setHeight(Number(e.target.valueAsNumber))}
+      />
+      <button type="submit" disabled={isSubmitDisabled}>
+        Submit
+      </button>
+    </form>
+  );
 }
