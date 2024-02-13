@@ -1,0 +1,21 @@
+.control {
+  display:flex;
+  flex-flow:column;
+  align-items: stretch;
+  padding-bottom: 1rem;
+}
+
+.label {
+  text-align: left;
+}
+
+.input {
+  height: 1.6rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.starRequired {
+color: red;
+}
+
