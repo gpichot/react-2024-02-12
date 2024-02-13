@@ -1,4 +1,6 @@
 import { Meta, StoryObj } from "@storybook/react";
+import { userEvent, within } from "@storybook/testing-library";
+
 import InputControl from "./InputControl";
 
 const meta: Meta<typeof InputControl> = {
@@ -15,5 +17,14 @@ export const Default: Story = {
     label: "Street name",
     name: "streetName",
     placeholder: "42 rue de la Paix",
+  },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+
+    const input = canvas.getByLabelText("Street name");
+
+    await userEvent.type(input, "32 rue Massy", {
+      delay: 100,
+    });
   },
 };
