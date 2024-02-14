@@ -1,30 +1,22 @@
 import "./App.css";
-import { pokemons } from "./mocks";
-import PokemonList from "./components/PokemonList";
-import PokemonCard from "./components/PokemonCard";
-import PokemonForm from "./components/PokemonForm";
-import { Outlet, RouterProvider, createBrowserRouter } from "react-router-dom";
-
-// PokemonListPage
-// PokemonFormPage
+import {
+  Link,
+  Outlet,
+  RouterProvider,
+  createBrowserRouter,
+} from "react-router-dom";
+import PokemonListPage from "./pages/PokemonListPage";
+import PokemonDetailPage from "./pages/PokemonDetailPage";
+import React from "react";
 
 function Menu() {
   return (
     <nav style={{ display: "flex", gap: "1rem" }}>
-      <a href="/">Accueil</a>
-      <a href="/new">Nouveau pokemon</a>
-      <a href="/about">A propos</a>
+      <Link to="/Gabriel">Accueil</Link>
+      <Link to="/new">Nouveau pokemon</Link>
+      <Link to="/about">A propos</Link>
+      <Link to="/table">Table</Link>
     </nav>
-  );
-}
-
-function PokemonListPage() {
-  return (
-    <PokemonList>
-      {pokemons.map((pokemon) => (
-        <PokemonCard key={pokemon.id} pokemon={pokemon} />
-      ))}
-    </PokemonList>
   );
 }
 
@@ -37,18 +29,58 @@ function Root() {
   );
 }
 
+const PokemonForm = React.lazy(async () => {
+  const mod = await import("./components/PokemonForm");
+  return mod;
+});
+
+function Table() {
+  const [transposed, setTransposed] = React.useState(true);
+  const values = [1, 2, 3, 4];
+  const rows = transposed
+    ? [...values, ...values].toReversed().map((x) => [x])
+    : [[...values, ...values]];
+
+  return (
+    <>
+      <button onClick={() => setTransposed((v) => !v)}>toggle</button>
+      <table>
+        {rows.map((row) => (
+          <tr key={row[0]}>
+            {row.map((value) => (
+              <td key={value}>{value}</td>
+            ))}
+          </tr>
+        ))}
+      </table>
+    </>
+  );
+}
+
 const router = createBrowserRouter([
   {
     path: "/",
     element: <Root />,
     children: [
       {
-        path: "/",
+        path: "/:name?",
         element: <PokemonListPage />,
       },
       {
+        path: "/table",
+        element: <Table />,
+      },
+      {
         path: "/new",
-        element: <PokemonForm />,
+        element: (
+          <React.Suspense fallback="Loading">
+            <PokemonForm />
+          </React.Suspense>
+        ),
+      },
+      {
+        path: "/pokemons/:pokemonId",
+        element: <PokemonDetailPage />,
       },
       {
         path: "/about",

@@ -1,6 +1,7 @@
+import React from "react";
 import styles from "./InputControl.module.css";
 
-interface InputControlProps extends React.ComponentPropsWithoutRef<"input"> {
+interface InputControlProps extends React.ComponentPropsWithRef<"input"> {
   label: string;
   name: string;
 }
@@ -26,3 +27,14 @@ export default function InputControl({
     </div>
   );
 }
+
+/*
+<MyItem />
+MyItem: <ul><ListItem>Foo</ListItem></ul>
+ListItem: <li className="list-item">Foo</li>
+
+<MyItem />
+MyItem: <ul><ListItem>Foo</ListItem></ul>
+ListItem: <li className="list-item">Foo</li>
+
+*/

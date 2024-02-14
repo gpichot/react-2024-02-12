@@ -23,6 +23,7 @@ export default function PokemonForm() {
         onChange={(e) => setName(e.target.value)}
         required
       />
+      <p>{name}</p>
       <InputControl
         label="Type"
         name="type"

@@ -1,12 +1,4 @@
 .pokemonCard {
   border: 1px solid #202020;
   background-color: #787878;
-
-  .name {
-    color: blue;
-  }
-}
-
-.name {
-  background-color: blue;
 }

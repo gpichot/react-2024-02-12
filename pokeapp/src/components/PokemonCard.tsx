@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import { PokemonDetail } from "../types";
 import styles from "./PokemonCard.module.css";
 
@@ -6,6 +7,7 @@ interface PokemonCardProps {
 }
 
 export default function PokemonCard(props: PokemonCardProps) {
+  const { pokemon } = props;
   const { image, name, types } = props.pokemon;
 
   return (
@@ -13,6 +15,7 @@ export default function PokemonCard(props: PokemonCardProps) {
       <img src={image} alt={name} />
       <h2 className={styles.name}>{name}</h2>
       <p>{types.join(", ")}</p>
+      <Link to={`/pokemons/${pokemon.id}`}>Détail</Link>
     </div>
   );
 }
