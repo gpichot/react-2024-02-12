@@ -19,6 +19,19 @@ export function usePokemonListQuery({ offset = 0 }: { offset: number }) {
       return response.json() as Promise<PokemonListResponse>;
     },
     placeholderData: keepPreviousData,
-    staleTime: 10 * 1000,
+    staleTime: 4 * 60 * 1000,
+  });
+}
+
+export function usePokemonDetailQuery(id: string | number | undefined) {
+  return useQuery({
+    queryKey: ["pokemon", id],
+    queryFn: async () => {
+      const response = await fetch(
+        `https://pokeapi.fly.dev/gpichot-2024-02-12/pokemons/${id}`
+      );
+      return response.json() as Promise<PokemonDetail>;
+    },
+    enabled: Boolean(id),
   });
 }

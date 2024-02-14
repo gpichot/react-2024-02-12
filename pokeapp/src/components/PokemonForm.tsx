@@ -1,18 +1,29 @@
 import { useState } from "react";
 import InputControl from "./InputControl";
+import { useCreatePokemonMutation } from "../mutation-hooks";
+import { useNavigate } from "react-router-dom";
 
 export default function PokemonForm() {
   const [name, setName] = useState("");
   const [type, setType] = useState("");
   const [weight, setWeight] = useState(0);
   const [height, setHeight] = useState(0);
+  const createPokemon = useCreatePokemonMutation();
+  const navigate = useNavigate();
 
   const handleSubmit: React.FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     console.log({ name, type, weight, height });
+    const payload = { name, type, weight, height };
+
+    createPokemon.mutate(payload, {
+      onSuccess: (data) => {
+        navigate(`/pokemons/${data.id}`);
+      },
+    });
   };
 
-  const isSubmitDisabled = !name || !type;
+  const isSubmitDisabled = !name || !type || createPokemon.isPending;
 
   return (
     <form onSubmit={handleSubmit}>

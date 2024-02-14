@@ -1,8 +1,6 @@
 import PokemonList from "../components/PokemonList";
 import PokemonCard from "../components/PokemonCard";
 import { useParams } from "react-router-dom";
-import useFetchResource from "../hooks/useFetchResource";
-import { PokemonDetail } from "../types";
 import React from "react";
 import { usePokemonListQuery } from "../query-hooks";
 

@@ -1,12 +1,9 @@
 import { useParams } from "react-router-dom";
-import useFetchResource from "../hooks/useFetchResource";
-import { PokemonDetail } from "../types";
+import { usePokemonDetailQuery } from "../query-hooks";
 
 export default function PokemonDetailPage() {
-  const { pokemonId: id } = useParams();
-  const pokemonDetail = useFetchResource<PokemonDetail>(
-    `https://pokeapi.fly.dev/gpichot-2024-02-12/pokemons/${id}`
-  );
+  const { pokemonId: id } = useParams<{ pokemonId: string }>();
+  const pokemonDetail = usePokemonDetailQuery(id);
 
   if (pokemonDetail.isLoading) {
     return <p>Loading</p>;
