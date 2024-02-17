@@ -27,6 +27,9 @@ describe("PokemonForm", () => {
     expect(button).toBeDisabled();
   });
 
+  it.todo("creates a pokemon in the api");
+  it.todo("validates that height is greater than 10");
+
   it("submits the form", async () => {
     const user = userEvent.setup();
     myRender(<PokemonForm />);
